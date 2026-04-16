@@ -27,35 +27,16 @@ endif
 # Better define NVCC_GENCODE in your environment to the minimal set
 # of archs to reduce compile time.
 ifeq ($(shell test "0$(CUDA_MAJOR)" -ge 13; echo $$?),0)
-# Add Blackwell but drop Pascal & Volta support if we're using CUDA13.0 or above
-NVCC_GENCODE ?= -gencode=arch=compute_75,code=sm_75 \
-		-gencode=arch=compute_80,code=sm_80 \
-		-gencode=arch=compute_90,code=sm_90 \
-		-gencode=arch=compute_100,code=sm_100 \
-		-gencode=arch=compute_120,code=sm_120 \
-		-gencode=arch=compute_120,code=compute_120
+NVCC_GENCODE ?= -gencode=arch=compute_80,code=sm_80 \
+		-gencode=arch=compute_80,code=compute_80
 else ifeq ($(shell test "0$(CUDA_MAJOR)" -eq 12 -a "0$(CUDA_MINOR)" -ge 8; echo $$?),0)
-# Include Blackwell support if we're using CUDA12.8 or above
-NVCC_GENCODE ?= -gencode=arch=compute_60,code=sm_60 \
-		-gencode=arch=compute_61,code=sm_61 \
-		-gencode=arch=compute_70,code=sm_70 \
-		-gencode=arch=compute_80,code=sm_80 \
-		-gencode=arch=compute_90,code=sm_90 \
-		-gencode=arch=compute_100,code=sm_100 \
-		-gencode=arch=compute_120,code=sm_120 \
-		-gencode=arch=compute_120,code=compute_120
+NVCC_GENCODE ?= -gencode=arch=compute_80,code=sm_80 \
+		-gencode=arch=compute_80,code=compute_80
 else ifeq ($(shell test "0$(CUDA_MAJOR)" -ge 12; echo $$?),0)
-NVCC_GENCODE ?= -gencode=arch=compute_60,code=sm_60 \
-                -gencode=arch=compute_61,code=sm_61 \
-                -gencode=arch=compute_70,code=sm_70 \
-		-gencode=arch=compute_80,code=sm_80 \
-		-gencode=arch=compute_90,code=sm_90 \
-		-gencode=arch=compute_90,code=compute_90
+NVCC_GENCODE ?= -gencode=arch=compute_80,code=sm_80 \
+		-gencode=arch=compute_80,code=compute_80
 else ifeq ($(shell test "0$(CUDA_MAJOR)" -ge 11; echo $$?),0)
-NVCC_GENCODE ?= -gencode=arch=compute_60,code=sm_60 \
-                -gencode=arch=compute_61,code=sm_61 \
-                -gencode=arch=compute_70,code=sm_70 \
-		-gencode=arch=compute_80,code=sm_80 \
+NVCC_GENCODE ?= -gencode=arch=compute_80,code=sm_80 \
 		-gencode=arch=compute_80,code=compute_80
 else
 NVCC_GENCODE ?= -gencode=arch=compute_35,code=sm_35 \
